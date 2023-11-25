@@ -1,3 +1,8 @@
+/**
+ * Esta função recebe o número de seu parâmetro e verifica se este é divisível por 3 ou por 5
+ * @param {*} numero 
+ * @returns resultado
+ */
 function somarDivisiveis(numero) {
   let resultado = 0;
   for (let i = 0; i < numero; i++) {
@@ -8,6 +13,6 @@ function somarDivisiveis(numero) {
   return resultado;
 }
 
-let numero = 10; // Altere aqui o número desejado
+let numero = 10; // Mude para o número desejado
 let somatorio = somarDivisiveis(numero);
 console.log(`# Somatório de números divisíveis por 3 e por 5 #\n\nResultado: ${somatorio}`);
