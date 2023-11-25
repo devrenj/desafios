@@ -2,7 +2,7 @@
 
 ## Desafio Técnico 1
 
-[+ Execute o código](/README.md)
+[+ Execute o código](EXECUTE.md)
 
 ### Descrição
 
@@ -19,4 +19,4 @@
 - 🆗 Sua implementação deve estar em um repositório público no Github.
 - 🆗 Escreva um README no seu repositório com as instruções de como rodar o seu projeto e como podemos testá-lo.
 
-[+ Execute o código](/README.md)
+[+ Execute o código](EXECUTE.md)
