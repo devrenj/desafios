@@ -25,9 +25,7 @@ Pessoal vou lançar um desafio nível iniciante aqui pra galera treinar (não va
 <li>Se o cometário ultrapassar 20 caracteres, a tela deverá exibir a frase "O seu comentário ultrapassou o texto em (x) caracteres.</li>
 <li>Onde x é o número de caracteres acima de 20.</li>
 <ul>
-<br>
 </details>
 
 ### LICENSE
-
 Copyright (c) 2024 Roberto Nóbrega Jr. ([@devrenj](https://www.github.com/devrenj)) under MIT License
