@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>Desafio Rodrigo - Faculdade Descomplica</title>
+  <style>
+
+    :root {
+    --dark-color: #000;
+    --medium-color: #333;
+    --light-color: #fff;
+    --primary-color: #00e88f;
+    --primary-color-light: #eefff8;
+    --secondary-color: #008855;
+    --warning: #ff0000;
+    --warning-dark: #960000;
+    
+    }
+
+    * {
+      border-radius: 5px;
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      color: var(--dark-color);
+      font-size: 14px;
+    }
+
+    body {
+      margin: 50px;
+      font-family: 'Roboto';
+    }
+
+    .container {
+      margin: 20px 0;
+      #usuario {
+        padding: 0;
+        margin: 0;
+        text-align: right;
+        cursor: default;
+        &:hover {
+          color: var(--primary-color);
+          cursor: pointer;
+        }
+      }
+      .logo {
+        display: flex;
+        flex-direction: row;
+        background-color: var(--dark-color);
+        width: 500px;
+        height: 100px;
+        padding: 30px;
+        justify-content: center;
+        align-items: center;
+        margin: 0px auto 30px auto;
+        img {
+          width: 70px;
+          margin: 0 10px 0 0;
+        }
+        .titulo {
+          display: flex;
+          flex-direction: column;
+
+          h1, h2 {
+            padding: 0;
+            margin: 0;
+            color: var(--light-color);
+            cursor: default;
+          }
+          h1 {
+            font-size: 50px;
+          }
+        }
+      }
+      .input {
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 5px;
+        input {
+          height: 100px;
+        }
+        button {
+          background-color: var(--primary-color);
+          border: var(--secondary-color) 2px solid;
+          color: var(--light-color);
+          padding: 0 30px;
+          &:hover {
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            cursor: pointer;
+          }
+        }
+        textarea {
+          resize: none;
+        }
+        input{
+          padding: 5px;
+          width: 300px;
+          height: 50px;
+        }
+      }
+      p#alerta {
+        margin: 0;
+        padding: 5px 0;
+        height: 25px;
+        color: var(--warning);
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      div#campoComentarios{
+        display: flex;
+        flex-wrap: wrap;
+        section{
+          display: flex;
+          flex-direction: column;
+          border: var(--medium-color) 1px solid;
+          background-color: var(--light-color);
+          margin: 5px;
+          cursor: default;
+          transition: background 0.3s ease-in-out;
+          &:hover {
+            background-color: var(--primary-color-light);
+          }
+            p.textoComentario {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+            cursor: default;
+          }
+          span.nomeUsuario {
+            display: flex;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: var(--primary-color);
+            border: var(--medium-color) 1px solid;
+            margin: 5px;
+            justify-content: center;
+            align-self: end;
+            width: fit-content;
+            padding: 0 5px;
+            cursor: default;
+          }
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p id="usuario">Olá!</p>
+    <div class="logo">
+      <img src="complica.png" alt="Complica, sua faculdade surreal">
+      <div class="titulo">
+        <h1>Complica</h1>
+        <h2>Sua faculdade surreal</h2>
+      </div>
+    </div>
+    <div class="input">
+      <!-- <textarea rows="4" cols="50" placeholder="Digite aqui seu comentário" id="comentario" maxlength="200"></textarea> -->
+      <input type="text" id="comentario" placeholder="Digite seu comentário" autocomplete="off">
+      <button type="submit" id="ok">OK</button>
+      <button type="submit" id="limpar">Limpar</button>
+    </div>
+    <p id="alerta"></p>
+    <div id="campoComentarios">
+    </div>
+  </div>
+  <script>
+    const comentario = document.querySelector('#comentario');
+    const botaoOk = document.querySelector('#ok');
+    const alerta = document.querySelector('#alerta');
+    const usuario = document.querySelector('#usuario');
+    const campoComentarios = document.querySelector('#campoComentarios');
+    const botaoLimpar = document.querySelector('#limpar');
+    const mensagemAlerta = {
+      maxCaracteres : 'Max. 20 caracteres',
+      minCaracteres : 'Campo vazio'
+    }
+
+    let nome = null;
+    function perguntarNome(e) {
+      const nomeUsuario = prompt('Digite o nome do usuário');
+      e(nomeUsuario);
+      usuario.innerText = nomeUsuario ? `Olá, ${nomeUsuario}!` : `Olá!`;
+    }
+    perguntarNome((e) => {nome = e});
+
+    function resetar(e) {
+      e.value = '';
+      e.innerText = '';
+      alerta.style.opacity = 0;
+    }
+
+    function receberDados(e) {
+      const textoDigitado = e.value;
+      verificarDados(textoDigitado);
+    }
+
+    let intervalo;
+    function temporizador(alerta) {
+          clearInterval(intervalo)
+          intervalo = setInterval(() => {
+          alerta.style.opacity = 0;
+          }, 2500);
+    }
+
+    function verificarDados(e) {
+      if (e.length > 20) {
+        alerta.innerText = mensagemAlerta.maxCaracteres + ` (Ultrapassaram ${e.length - 20} caracteres)`;
+        alerta.style.opacity = '1';
+        temporizador(alerta);
+      } else if (e.length <= 0) {
+        alerta.innerText = mensagemAlerta.minCaracteres;
+        alerta.style.opacity = '1';
+        temporizador(alerta);
+      } else {
+        postarComentario(e)
+        resetar(comentario);
+      }
+    }
+
+    function postarComentario(e) {
+      const section = document.createElement('section');
+      const textoComentario = document.createElement('p');
+      const nomeUsuario = document.createElement('span');
+      textoComentario.innerText = e;
+      textoComentario.classList.add('textoComentario')
+      section.appendChild(textoComentario);
+      nomeUsuario.innerText = (nome || 'Anônimo');
+      nomeUsuario.classList.add('nomeUsuario')
+      section.appendChild(nomeUsuario);
+      campoComentarios.append(section)
+    }
+
+    comentario.addEventListener('keydown', (e) => {
+      if (e.keyCode == '13') {
+        receberDados(comentario, campoComentarios); 
+      }
+    })
+
+    botaoOk.addEventListener('click', (e) => {
+      e.preventDefault();
+      receberDados(comentario, campoComentarios);
+    })
+
+    botaoLimpar.addEventListener('click', (e) => {
+      e.preventDefault();
+      resetar(comentario);
+    })
+
+    usuario.addEventListener('click', (e) => {
+      perguntarNome((e) => {nome = e});
+    })
+
+  </script>
+</body>
+</html>
