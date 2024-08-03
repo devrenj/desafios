@@ -15,6 +15,8 @@ Desafios decorrentes do curso de Análise e Desenvolvimento de Sistemas e també
 
 [+ Ir para desafio](Descomplica/DesafioRodrigo.html)
 
+[+ Repositório](https://www.github.com/devrenj/desafios/)
+
 <details>
 <summary>Detalhes do desafio</summary>
 Pessoal vou lançar um desafio nível iniciante aqui pra galera treinar (não vale consultar o chatgpt, somente a documentação oficial, valendo?
@@ -24,7 +26,7 @@ Pessoal vou lançar um desafio nível iniciante aqui pra galera treinar (não va
 <li>O cometário que tiver até 20 caracteres será exibido na tela</li>
 <li>Se o cometário ultrapassar 20 caracteres, a tela deverá exibir a frase "O seu comentário ultrapassou o texto em (x) caracteres.</li>
 <li>Onde x é o número de caracteres acima de 20.</li>
-<ul>
+</ul>
 </details>
 
 ### LICENSE
