@@ -210,7 +210,7 @@
 
     function verificarDados(e) {
       if (e.length > 20) {
-        alerta.innerText = mensagemAlerta.maxCaracteres + ` (Ultrapassaram ${e.length - 20} caracteres)`;
+        alerta.innerText = mensagemAlerta.maxCaracteres + `: O seu comentário ultrapassou o texto em (${e.length - 20}) caracteres.`;
         alerta.style.opacity = '1';
         temporizador(alerta);
       } else if (e.length <= 0) {
