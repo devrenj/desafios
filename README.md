@@ -37,9 +37,9 @@ Pessoal vou lançar um desafio nível iniciante aqui pra galera treinar (não va
 <details>
 <summary>Detalhes do desafio</summary>
 Crie uma aplicação que solicite ao usuário o seu cargo e o seu salário.
+<br>Siga as orientações abaixo:
 <br><br>
 <ul>
-Siga as orientações abaixo:
 <li>Para estagiários, aumentar o valor em 10%</li>
 <li>Para treinee, aumentar o valor em 9%</li>
 <li>Para junior, aumentar o valor em 8%</li>
