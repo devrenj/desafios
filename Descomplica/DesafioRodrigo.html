@@ -20,7 +20,7 @@
     }
 
     * {
-      border-radius: 5px;
+      /* border-radius: 5px; */
       box-sizing: border-box;
       padding: 0;
       margin: 0;
@@ -29,21 +29,56 @@
     }
 
     body {
-      margin: 50px;
+      margin: 0px;
       font-family: 'Roboto';
     }
 
+    header {
+      background-color: var(--dark-color);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 0 20px;
+    }
+    button {
+          font-weight: bold;
+          background-color: var(--light-color);
+          border: var(--secondary-color) 2px solid;
+          color: var(--primary-color);
+          padding: 0 30px;
+          min-height: 30px;
+          &:hover {
+            color: var(--dark-color);
+            background-color: var(--primary-color-light);
+            cursor: pointer;
+          }
+          &#logar {
+            background-color: var(--primary-color);
+            border: var(--secondary-color) 2px solid;
+            color: var(--light-color);
+            padding: 0 30px;
+            &:hover {
+              color: var(--dark-color);
+              background-color: var(--light-color);
+              cursor: pointer;
+            }
+          }
+        }
+
     .container {
-      margin: 20px 0;
       #usuario {
-        padding: 0;
+        margin: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 10px;
+        height: 50px;
         margin: 0;
         text-align: right;
         cursor: default;
-        &:hover {
-          color: var(--primary-color);
-          cursor: pointer;
-        }
+        color: var(--light-color);
       }
       .logo {
         display: flex;
@@ -51,10 +86,8 @@
         background-color: var(--dark-color);
         width: 500px;
         height: 100px;
-        padding: 30px;
-        justify-content: center;
+        /* padding: 30px; */
         align-items: center;
-        margin: 0px auto 30px auto;
         img {
           width: 70px;
           margin: 0 10px 0 0;
@@ -75,6 +108,7 @@
         }
       }
       .input {
+        width: 500px;
         padding: 0;
         display: flex;
         flex-direction: row;
@@ -82,17 +116,6 @@
         gap: 5px;
         input {
           height: 100px;
-        }
-        button {
-          background-color: var(--primary-color);
-          border: var(--secondary-color) 2px solid;
-          color: var(--light-color);
-          padding: 0 30px;
-          &:hover {
-            color: var(--dark-color);
-            background-color: var(--light-color);
-            cursor: pointer;
-          }
         }
         textarea {
           resize: none;
@@ -146,30 +169,76 @@
           }
         }
       }
+      @media screen and (max-width: 590px) {
+        body {
+        margin: 0;
+      }
+
+      header {
+        flex-direction: column-reverse;
+        min-width: 300px;
+      }
+
+      .logo {
+        width: 300px;
+      }
+
+      .container {
+        justify-content: center;
+      }
+
+      .input {
+        flex-direction: column;
+        width: 320px;
+        #comentario {
+          width: 100%;
+        }
+        .botoes {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+
+    @media screen and (max-width: 320px) {
+      body {
+        margin: 0;
+      }
+      header {
+        flex-direction: column-reverse;
+        width: 300px;
+      }
+
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <p id="usuario">Olá!</p>
+  <header>
     <div class="logo">
-      <img src="complica.png" alt="Complica, sua faculdade surreal">
-      <div class="titulo">
-        <h1>Complica</h1>
-        <h2>Sua faculdade surreal</h2>
+        <img src="complica.png" alt="Complica, sua faculdade surreal">
+        <div class="titulo">
+          <h1>Complica</h1>
+          <h2>Sua faculdade surreal</h2>
+        </div>
       </div>
-    </div>
+      
+      <p id="usuario"><button id="logar">Entrar</button></p>
+    </header>
+      <div class="container">
     <div class="input">
       <!-- <textarea rows="4" cols="50" placeholder="Digite aqui seu comentário" id="comentario" maxlength="200"></textarea> -->
       <input type="text" id="comentario" placeholder="Digite seu comentário" autocomplete="off">
-      <button type="submit" id="ok">OK</button>
-      <button type="submit" id="limpar">Limpar</button>
+      <div class="botoes">
+        <button type="submit" id="ok">OK</button>
+        <button type="submit" id="limpar">Limpar</button>
+      </div>
     </div>
     <p id="alerta"></p>
-    <div id="campoComentarios">
-    </div>
+  </div>
+  <div id="campoComentarios">
   </div>
   <script>
+    let firstClick = true
     const comentario = document.querySelector('#comentario');
     const botaoOk = document.querySelector('#ok');
     const alerta = document.querySelector('#alerta');
@@ -182,12 +251,31 @@
     }
 
     let nome = null;
-    function perguntarNome(e) {
+    function perguntarNome(e, f) {
       const nomeUsuario = prompt('Digite o nome do usuário');
       e(nomeUsuario);
-      usuario.innerText = nomeUsuario ? `Olá, ${nomeUsuario}!` : `Olá!`;
+      usuario.innerHTML = nomeUsuario ? `Olá, ${nomeUsuario}! <button id="deslogar">Deslogar</button>` : `Olá! <button>Deslogar</button>`;
     }
-    perguntarNome((e) => {nome = e});
+
+    function AdicionarAddEventListener() {
+      firstClick = false;
+      const botaoDeslogar = document.getElementById('deslogar');
+      const botaoLogar = document.getElementById('logar');
+
+      if (botaoDeslogar) {
+        botaoDeslogar.addEventListener('click', (e) => {
+          e.preventDefault();
+          usuario.innerHTML = '<button id="logar">Entrar</button>';
+        });
+      }
+
+      if (botaoLogar) {
+        botaoLogar.addEventListener('click', (e) => {
+          e.preventDefault();
+          perguntarNome((e) => { nome = e; });
+        });
+      }
+    }
 
     function resetar(e) {
       e.value = '';
@@ -253,7 +341,10 @@
     })
 
     usuario.addEventListener('click', (e) => {
-      perguntarNome((e) => {nome = e});
+      if (firstClick){
+        perguntarNome((e) => {nome = e});
+      }
+      AdicionarAddEventListener();
     })
 
   </script>
